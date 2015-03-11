@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	    http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <context:component-scan base-package="com.staples.sa.automation.commons"/>  
+	<context:spring-configured /> 
+    <context:annotation-config/>
+    
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="false" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath*:META-INF/spring/automation-${environment}.properties</value>
+				<value>classpath*:META-INF/spring/automation-core.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="dataSource">
+		<property name="driverClassName" value="${database.driverClassName}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+		<property name="minIdle" value="${database.minIdle}" />
+		<property name="initialSize" value="${database.initialPoolSize}" />
+		<property name="maxActive" value="${database.maxPoolSize}" />
+		<property name="maxIdle" value="${database.maxIdle}" />
+		<property name="testOnBorrow" value="true" />
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+		<property name="maxWait" value="10000" />
+		<property name="minEvictableIdleTimeMillis" value="30000" />
+		<property name="logAbandoned" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="validationInterval" value="300000" />
+		<property name="jdbcInterceptors"
+			value="org.apache.tomcat.jdbc.pool.interceptor.SlowQueryReport(threshold=10000)" />
+	</bean>
+
+	
+	<bean id="automationDriver" class="com.staples.sa.automation.commons.AutomationDriver">
+		<constructor-arg index="0" type="String" value="${com.staples.automation.config.driver}" />
+		<constructor-arg index="0" type="String" value="${com.driver.type}" />
+	</bean>
+	
+</beans>
