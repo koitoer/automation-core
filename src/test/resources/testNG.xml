@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test Suite 1" verbose="2" configfailurepolicy="continue" parallel="false" 
+	thread-count="2" preserve-order="true">
+    <test name="FooTest 1.b" >
+    	<parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.staples.sa.automation.RunIntegrationTest2" />
+        </classes>
+    </test>
+</suite>
