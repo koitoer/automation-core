@@ -23,7 +23,7 @@
 		</property>
 	</bean>
 
-	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="dataSource">
+	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="dataSource" lazy-init="true">
 		<property name="driverClassName" value="${database.driverClassName}" />
 		<property name="url" value="${database.url}" />
 		<property name="username" value="${database.username}" />
